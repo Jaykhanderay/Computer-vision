@@ -1,0 +1,25 @@
+import cv2
+import numpy as np
+
+image =cv2.imread('cat.jpg')
+image=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+
+
+#performing the edge detection 
+
+gradients_sobelx=cv2.Sobel(image,-1,1,0)
+gradients_sobely=cv2.Sobel(image,-1,0,1)
+gradients_sobelxy=cv2.addWeighted(gradients_sobelx,0.5,gradients_sobely,0.5,0)
+
+#laplacian
+
+gradient_laplacian=cv2.Laplacian(image,-1)
+
+canny_ouput=cv2.Canny(image,80,150)
+
+cv2.imshow('Sobel x',gradients_sobelx)
+cv2.imshow('Sobel y',gradients_sobely)
+cv2.imshow('Sobel X+y',gradients_sobelxy)
+cv2.imshow('laplacian',gradient_laplacian)
+cv2.imshow('canny',canny_ouput)
+cv2.waitKey()
